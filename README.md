@@ -1,7 +1,3 @@
----
-cssclasses: code-nowrap
----
-
 # KVM with GPU-passthrough on a Full-AMD system (Arch linux/Win11)
 
 ##  Table of Contents
@@ -30,7 +26,7 @@ cssclasses: code-nowrap
 
 May this page serve as my attempt at documenting my process of setting up a KVM with a GPU passthrough on a full-AMD system.
 
-![[./img/dualmon.jpg|500]]
+<img src="./img/dualmon.jpg" width="500"  alt="Photo of two monitors in a vertical setup. Monitor on the top displays a desktop with Arch linux logo. Monitor on the bottom displays Windows 11 properties menu."/>
 
 *Please note: This is not a tutorial - even if I may style it as one.
 May the information here help you, and feel free to open up an issue if you think any of it is wrong or outdated. But don't complain if you end up breaking your setup because you religiously followed the steps with no second thought.*
@@ -295,58 +291,58 @@ We can now start virt-manager and create our desired VM
 #### Step 4.1: GUI setup
 Create a new virtual machine
 
-![[1.png|500]]
+<img src="./img/1.png" width="500" />
 
 Select "Local install media"
 
-![[2.png|500]]
+<img src="./img/2.png" width="500" />
 
 Select your installation .iso
 
-![[3.png|500]]
+<img src="./img/3.png" width="500" />
 
 Configure RAM and CPU settings.
 
-![[4.png|500]]
+<img src="./img/4.png" width="500" />
 
 For my setup I am passing through an NVMe drive, so I uncheck "Enable storage for this virtual machine"
 
-![[5.png|500]]
+<img src="./img/5.png" width="500" />
 
 Select "Customise configuration before install"
 
-![[6.png|500]]
+<img src="./img/6.png" width="500" />
 
 Under "CPUs" select the `host-passthrough` model
 
-![[7.png|500]]
+<img src="./img/7.png" width="500" />
 
 Remove "SPLICE" and Video displays, as well as any other devices you don't need.
 
-![[8.png|500]]
+<img src="./img/8.png" width="500" />
 
 Under NIC select `virtio` device model for better network performance
 
-![[9.png|500]]
+<img src="./img/9.png" width="500" />
 
 Next click "Add hardware" --> PCI Host Device, and select your dGPU
 
-![[10.png|500]]
+<img src="./img/10.png" width="500" />
 
 Repeat for every PCI device you want to pass-through.
 *Note: The NVMe PCI bridge may not show here. In this case just skip it.*
 
-![[11.png|500]]
+<img src="./img/11.png" width="500" />
 
 Add the virtio-win.iso
 "Add Hardware" --> Storage --> Select or create custom storage
 
-![[13.png|500]]
+<img src="./img/13.png" width="500" />
 
 You can also choose to pass-through any USB devices.
 *Note: These USB devices will be unavailable to the host for as long as the VM is powered on. For a switchable host/guest keyboard look [section 4.4](#4.4%20Mouse%20&%20Keyboard).*
 
-![[12.png|500]]
+<img src="./img/12.png" width="500" />
 
 You might be able to run the VM with just these steps, however I recommend looking through the next section first.
 
@@ -358,7 +354,7 @@ Click on "Overview" --> XML
 
 Radeon 9070 XT has an unpleasant bug with the Windows AMD drivers when ran in pass-through, which results in this nasty image:[^warbled]
 
-![[glitch.jpg|500]]
+<img src="./img/glitch.jpg" width="500" />
 
 Thankfully, we can fix it.[^warbled-fix]
 
@@ -512,38 +508,38 @@ For this, I'll be using a NetworkManager GUI app:
 
 Launch the app and select your ethernet connection
 
-![[n1.png|500]]
+<img src="./img/n1.png" width="500" />
 
 Click the gear icon to go into settings.
 Go to IPv4 Settings and under `Method` select `Disabled`
 Repeat for IPv6.
 *Note: This will temporary kill your internet connection. If you have anything other than DHCP, make sure to write down your connection settings.*
 
-![[n2.png|500]]
+<img src="./img/n2.png" width="500" />
 
 Click Save.
 Next, click on the Plus (+) icon to create a new connection.
 Select `Bridge` and click "Create"
 
-![[n3.png|500]]
+<img src="./img/n3.png" width="500" />
 
 Name the interface, then under `Bridged connections` click "Add"
 
-![[n4.png|500]]
+<img src="./img/n4.png" width="500" />
 
 Select `Ethernet` and click "Create"
 
-![[n5.png|500]]
+<img src="./img/n5.png" width="500" />
 
 Under `device` select your Ethernet interface
 Under `Link negotiation` select `Manual`
 
-![[n6.png|500]]
+<img src="./img/n6.png" width="500" />
 
 Go to IPv4 Settings. Under `Method` select `Automatic (DHCP)`
 (or enter settings you've previously had on the Ethernet interface)
 
-![[n7.png|500]]
+<img src="./img/n7.png" width="500" />
 
 Click "Save".
 In a moment, your internet connection should resume.
@@ -554,7 +550,7 @@ Now open virt-manager
 Under your VM's settings, go to `NIC` and change `Network source` to `Bridge device`.
 In the `Device name` field, type in the name of your previously created interface.
 
-![[Screenshot From 2025-12-03 23-46-06.png]]
+<img src="./img/n8.png" width="500" />
 
 The VM should now be in the same subnet as your host device
 
