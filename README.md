@@ -235,8 +235,8 @@ If your display came on but you're greeted with a black screen:
 - Put `video=efifb:off` in `GRUB_CMDLINE_LINUX_DEFAULT`
 - Reload grub config with `sudo grub-mkconfig -o /boot/grub/grub.cfg`
 
-You may also try switching to TTL with Ctrl+F3/Ctrl+F2
-*Note: From my experience, switching to TTL doesn't work properly with GDM*
+You may also try switching to TTY with Ctrl+F3/Ctrl+F2
+*Note: From my experience, switching to TTY doesn't work properly with GDM*
 
 If none of your displays came on, look for `bind.log` in the directory you ran the script from and look for any errors or freezes. (Check if all commands from the script above executed)[^logging]
 
